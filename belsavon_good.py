@@ -46,7 +46,9 @@ class Good:
         
         self.name = soup.find('h1').text
         
-        self.price = soup.find('div', 'vina_price').text.strip().replace('руб.','').replace('.00','')
+        self.price = soup.find('div', 'vina_price').text.strip().replace('руб.','').replace('.00','').replace(' ','')
+        if '\n' in self.price:
+            self.price = sx('|' + self.price,'|','\n').replace('|','')
         
         self.description =  soup.find('div', {'class':'jshop_prod_description'}).text.strip().replace('\n','').replace('\t','').replace('\r','') + ' ' +\
                             soup.find('div', {'id':'vina-description'}).text.strip().replace('\n','').replace('\t','').replace('\r','')
